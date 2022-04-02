@@ -1,7 +1,4 @@
 final public class BackpropagationNN {
-  static let shared = BackpropagationNN()
-  public init() {}
-  
   public var learningRate: Float = 0.1
   public var ephos: Int = 5000
   public var weightsInitialRange: Float = .random(in: -4...4)
