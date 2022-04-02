@@ -1,6 +1,6 @@
 final public class BackpropagationNN {
   static let shared = BackpropagationNN()
-  private init() {}
+  public init() {}
   
   public var learningRate: Float = 0.1
   public var ephos: Int = 5000
