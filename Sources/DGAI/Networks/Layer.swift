@@ -1,3 +1,3 @@
 public class Layer {
-  var neurons: [Neuron] = []
+  public var neurons: [Neuron] = []
 }

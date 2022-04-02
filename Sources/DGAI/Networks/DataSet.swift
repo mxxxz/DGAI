@@ -1,8 +1,8 @@
-final public class DataSet {
-  let input: [Float]
-  let expectedResult: Float
+public class DataSet {
+  public let input: [Float]
+  public let expectedResult: Float
   
-  init(input: [Float], expectedResult: Float) {
+  public init(input: [Float], expectedResult: Float) {
     self.input = input
     self.expectedResult = expectedResult
   }

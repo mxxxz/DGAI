@@ -1,4 +1,4 @@
-final class MSE {
+public class MSE {
   public class func MSE(predicts: [Float], expences: [Float]) -> Float {
     var sum: Float = 0
     for i in 0..<predicts.count {

@@ -1,4 +1,4 @@
-final class Neuron {
-  var value: Float = 0
-  var weights: [Float] = []
+public class Neuron {
+  public var value: Float = 0
+  public var weights: [Float] = []
 }
