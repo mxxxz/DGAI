@@ -1,4 +1,4 @@
 public struct DataSet {
-  let input: [Float]
-  let expected: Float
+  public let input: [Float]
+  public let expected: Float
 }
