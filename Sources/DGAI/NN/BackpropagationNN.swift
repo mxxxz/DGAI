@@ -1,16 +1,19 @@
 public class BackpropagationNN {
   
-  public init(ephos: Int, learningRate: Float, minRange: Float = -1, maxRange: Float = 1) {
+  public init(ephos: Int, learningRate: Float, minRange: Float = -1, maxRange: Float = 1, isStatic: Bool = false) {
     self.ephos = ephos
     self.learningRate = learningRate
     self.minRange = minRange
     self.maxRange = maxRange
+    self.isStatic = isStatic
   }
   
   public let minRange: Float
   public let maxRange: Float
   public let ephos: Int
   public let learningRate: Float
+  public let staticWeight: Float = 0.73
+  public var isStatic: Bool
   
   public var onEphos: ((Int) -> ())?
   public var onMSE: ((Float) -> ())?
@@ -24,7 +27,7 @@ public class BackpropagationNN {
   }()
   
   public func generateRange() -> Float {
-    return .random(in: minRange...maxRange)
+    return isStatic ? staticWeight : .random(in: minRange...maxRange)
   }
   
   public func createLayers(inputNeurons: Int, hiddenNeurons: Int) {
