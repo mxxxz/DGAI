@@ -68,7 +68,7 @@ public class BackpropagationNN {
     let error: Float = actual - expected
     let sigmoidDx = actual * (1 - actual)
     let weightsDelta = error * sigmoidDx
-    hiddenLayer.reverse(weightDelta: weightsDelta, learningRate: learningRate)
+    hiddenLayer.backward(weightDelta: weightsDelta, learningRate: learningRate)
     for i in 0..<inputLayer.neurons.count {
       for w in 0..<inputLayer.neurons[i].weights.count {
         inputLayer.neurons[i].weights[w] = inputLayer.neurons[i].weights[w] - inputLayer.neurons[i].value * hiddenLayer.neurons[w].weightsDelta * learningRate

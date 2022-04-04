@@ -19,7 +19,7 @@ public class Layer {
     return result
   }
   
-  public func reverse(weightDelta: Float, learningRate: Float) {
+  public func backward(weightDelta: Float, learningRate: Float) {
     for n in neurons {
       for i in 0..<n.weights.count {
         n.weights[i] = n.weights[i] - n.value * weightDelta * learningRate
