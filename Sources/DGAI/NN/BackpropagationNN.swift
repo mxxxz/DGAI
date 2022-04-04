@@ -7,39 +7,39 @@ public class BackpropagationNN {
     self.maxRange = maxRange
   }
   
-  private let minRange: Float
-  private let maxRange: Float
-  private let ephos: Int
-  private let learningRate: Float
+  public let minRange: Float
+  public let maxRange: Float
+  public let ephos: Int
+  public let learningRate: Float
+  
+  public var onEphos: ((Int) -> ())?
+  public var onMSE: ((Float) -> ())?
   
   public var inputLayer: Layer = Layer()
   public var hiddenLayer: Layer = Layer()
-  public var outputLayer: Layer = Layer()
+  public var outputLayer: Layer = {
+    let layer = Layer()
+    layer.neurons.append(Neuron())
+    return layer
+  }()
   
   public func generateRange() -> Float {
     return .random(in: minRange...maxRange)
   }
   
-  public func setupInputLayer(neurons: Int, nextLayerNeuronsCount: Int) {
-    for _ in 0..<neurons {
+  public func createLayers(inputNeurons: Int, hiddenNeurons: Int) {
+    for _ in 0..<inputNeurons {
       let neuron = Neuron()
-      for _ in 0..<nextLayerNeuronsCount {
+      for _ in 0..<hiddenNeurons {
         neuron.weights.append(generateRange())
       }
       inputLayer.neurons.append(neuron)
     }
-  }
-  
-  public func setupHiddenLayer(neurons: Int) {
-    for _ in 0..<neurons {
+    for _ in 0..<hiddenNeurons {
       let neuron = Neuron()
       neuron.weights.append(generateRange())
       hiddenLayer.neurons.append(neuron)
     }
-  }
-  
-  public func setupOutputLayer() {
-    outputLayer.neurons.append(Neuron())
   }
   
   public func predict(values: [Float]) -> [Float] {
@@ -47,10 +47,17 @@ public class BackpropagationNN {
   }
   
   public func startTraining(data: [DataSet]) {
-    for _ in 0..<ephos {
+    for e in 0..<ephos {
+      var predicts: [Float] = []
+      var expectedResults: [Float] = []
       for d in data {
         train(values: d.input, expected: d.expected)
+        guard let firstPredict = predict(values: d.input).first else { return }
+        predicts.append(firstPredict)
+        expectedResults.append(d.expected)
       }
+      onEphos?(e)
+      onMSE?(MSE(predicts: predicts, expectedResults: expectedResults))
     }
     print("🟢 Training is over")
   }
